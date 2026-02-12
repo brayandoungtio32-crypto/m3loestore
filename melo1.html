@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M3LO E-STORE - Montres SKMEI</title>
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .header-left nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.2s ease;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .header-left nav a:hover {
+            color: #ff3333;
+            transform: translateY(-2px);
+        }
+
+        .header-left nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff3333;
+            transition: width 0.3s ease;
+        }
+
+        .header-left nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-center .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff3333, #ff6666);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .cart-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            background-color: #2a2a2a;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-link:hover {
+            background-color: #ff3333;
+            transform: scale(1.05);
+        }
+
+        .cart-count {
+            background-color: #ff3333;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* ===== CATALOGUE ===== */
+        .catalogue {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #ff3333;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-image-container {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover .product-main-image {
+            transform: scale(1.05);
+        }
+
+        .thumbnails {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: #f8f8f8;
+        }
+
+        .thumbnail {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #ff3333;
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .current-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ff3333;
+        }
+
+        .original-price {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .buy-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #25D366, #128C7E);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .buy-button:hover {
+            background: linear-gradient(to right, #128C7E, #0c6b5a);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        /* ===== PRODUCT MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #ff3333;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .header-left nav {
+                gap: 15px;
+            }
+
+            .catalogue {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                padding: 20px;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .catalogue {
+                grid-template-columns: 1fr;
+            }
+
+            .header-center .logo-text {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="header-left">
+            <nav>
+                <a href="index.html" class="active">Accueil</a>
+                <a href="catalogue.html" >Catalogue</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+
+        <div class="header-center">
+            <span class="logo-text">M3LO E-STORE</span>
+        </div>
+
+        <div class="header-right">
+            <a href="melo.html" class="cart-link">
+                <span>panier</span>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== PRODUCT CATALOGUE ===== -->
+    <div class="catalogue" id="product-catalogue">
+        <!-- Les produits seront ajoutés dynamiquement par JavaScript -->
+    </div>
+
+    <!-- ===== PRODUCT DETAIL MODAL ===== -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <h2 id="modalProductName"></h2>
+            <div class="modal-image-container">
+                <img id="modalProductImage" src="" alt="" style="width:100%; border-radius:8px; margin:15px 0;">
+            </div>
+            <p id="modalProductDescription"></p>
+            <div class="product-price-container" style="margin:20px 0;">
+                <span class="current-price" id="modalCurrentPrice"></span>
+                <span class="original-price" id="modalOriginalPrice"></span>
+            </div>
+            <a href="#" id="modalWhatsAppLink" class="buy-button">Commander sur WhatsApp</a>
+        </div>
+    </div>
+
+    <script>
+        // ===== PRODUCT DATA =====
+        const products = [
+          {
+                id: 1,
+                name: "Poedagar Chronographe 540",
+                description: " Élégance intemporelle avec boîtier en acier inoxydable poli, bracelet cuir véritable importé d'Italie. Mouvement automatique visible, réserve de marche 40h. Pour les occasions spéciales et le quotidien professionnel. ",
+                images: [
+                    "images/poedagar1.jpg",
+                    "images/poedagar2.jpg",
+                    "images/poedagar3.jpg",
+                ],
+                currentPrice: "20 000 FCFA",
+                originalPrice: "35 000 FCFA",
+                badge: "PLUS VENDUS"  
+            },
+            {
+                id: 2,
+                name: "Poedagar",
+                description: "Montre élégante au design haut de gamme, conçue pour les hommes modernes. POEDAGAR combine précision, robustesse et style premium à un prix imbattable. Idéale pour le travail, les sorties et les grandes occasions.",
+                images: [
+                    "images/montre_poedagar1.jpg",
+                    "images/montre_poedagar2.jpg",
+                    "images/montre_poedagar3.jpg"
+                ],
+                currentPrice: "18 500 FCFA",
+                originalPrice: "35 000 FCFA",
+                badge: "NOUVEAU"
+            },
+            {
+                id: 3,
+                name: "Sanda luxury",
+                description: "Affirme ton style avec la montre SANDA, un parfait mélange de design luxueux, robustesse sportive et haute précision. Conçue pour les hommes actifs et élégants, cette montre s’adapte aussi bien au quotidien qu’aux occasions spéciales.",
+                images: [
+                    "images/montre_classic1.jpg",
+                    "images/montre_classic2.jpg",
+                    "images/montre_classic3.jpg"
+                ],
+                currentPrice: "45 000 FCFA",
+                originalPrice: "60 000 FCFA",
+                badge: "LIMITÉE"
+            },
+            {
+                id: 4,
+                name: "Richard mille Watch",
+                description: "Richard Mille [modèle] – Extrême précision horlogère, matériaux high-tech, édition limitée. Le summum du luxe contemporain.",
+                images: [
+                    "images/richard_mille1.jpg",
+                    "images/richard_mille2.jpg",
+                    "images/richard_mille3.jpg"
+                ],
+                currentPrice: "20 000 FCFA",
+                originalPrice: "40 000 FCFA",
+                badge: "EN STOCK"
+            },
+           
+             {
+                id: 6,
+                name: "Lunnete classic",
+                description: "lunnete de prestige à prix abordable, alliant élégance et classe. Nos modèles First Gen sont protégés par un verre saphir ultra-résistant.",
+                images: [
+                    "images/lunnete_noir.jpg",
+                    "images/lunnete_argent.jpg",
+                    "images/lunnete_dore.jpg"
+                ],
+                currentPrice: "15 000 FCFA",
+                originalPrice: "30 000 FCFA",
+                badge: "PROMO -50%"
+            },
+             {
+                id: 6,
+                name: "Chaine Chrome",
+                description: "",
+                images: [
+                    "images/smart1.jpg",
+                    "images/smart2.jpg",
+                    "images/smart3.jpg"
+                ],
+                currentPrice: "10 000 FCFA",
+                originalPrice: "25 000 FCFA",
+                badge: "NOUVEAU"
+            },
+            {
+                id: 7,
+                name: "Poedagar G930",
+                description: "Affirme ton style avec les poedagars G930 : design moderne, bracelet en cuir, et confort optimal. un look qui attire les regards.",
+                images: [
+                    "images/smars1.jpg",
+                    "images/smars2.jpg",
+                    "images/smars3.jpg"
+                ],
+                currentPrice: "18 000 FCFA",
+                originalPrice: "30 000 FCFA",
+                badge: "REDUCTION -50%"
+            },
+          
+           
+             {
+                id: 8,
+                name: "Poedagar 630",
+                description: "⌚ POEDAGAR 630 Montre élégante au style sport & luxe, avec mouvement quartz précis et bracelet robuste.Parfaite pour le quotidien comme pour les grandes occasions.",
+                images: [
+                    "images/poedagar_630.jpg",
+                    "images/poedagar_631.jpg",
+                    "images/poedagar_632.jpg"
+                ],
+                currentPrice: "28 000 FCFA",
+                originalPrice: "40 000 FCFA",
+                badge: "Classique"
+            },
+             {
+                id: 9,
+                name: "Poedagar Nautilus",
+                description: "POEDAGAR nautilus Un classique revisité pour les esprits audacieux.Design iconique, finition premium, élégance naturelle au poignet.",
+                images: [
+                    "images/smarts1.jpg",
+                    "images/smarts2.jpg",
+                    "images/smarts3.jpg"
+                ],
+                currentPrice: "22 000 FCFA",
+                originalPrice: "30 000 FCFA",
+                badge: "NOUVEAU"
+            },
+          
+        
+
+
+        ];
+
+        // ===== DOM ELEMENTS =====
+        const catalogue = document.getElementById('product-catalogue');
+        const modal = document.getElementById('productModal');
+        const modalClose = document.getElementById('modalClose');
+        const cartCount = document.querySelector('.cart-count');
+
+        // ===== RENDER PRODUCTS =====
+        function renderProducts() {
+            catalogue.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    
+                    <div class="product-image-container">
+                        <img src="${product.images[0]}" 
+                             alt="${product.name}" 
+                             class="product-main-image"
+                             data-product-id="${product.id}">
+                    </div>
+                    
+                    <div class="thumbnails">
+                        ${product.images.map((img, index) => `
+                            <img src="${img}" 
+                                 alt="Vue ${index + 1}" 
+                                 class="thumbnail ${index === 0 ? 'active' : ''}"
+                                 data-product-id="${product.id}"
+                                 data-image-index="${index}">
+                        `).join('')}
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        
+                        <div class="product-price-container">
+                            <span class="current-price">${product.currentPrice}</span>
+                            ${product.originalPrice ? `<span class="original-price">${product.originalPrice}</span>` : ''}
+                        </div>
+                        
+                        <a href="https://wa.me/237694885267?text=Bonjour,%20je%20souhaite%20commander%20${encodeURIComponent(product.name)}"
+                           class="buy-button"
+                           data-product-id="${product.id}">
+                            Commander sur WhatsApp
+                        </a>
+                    </div>
+                `;
+                
+                catalogue.appendChild(productCard);
+            });
+        }
+
+        // ===== THUMBNAIL CLICK HANDLER =====
+        function handleThumbnailClick(event) {
+            const thumbnail = event.target;
+            if (!thumbnail.classList.contains('thumbnail')) return;
+            
+            const productId = parseInt(thumbnail.dataset.productId);
+            const imageIndex = parseInt(thumbnail.dataset.imageIndex);
+            
+            // Trouver le produit correspondant
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Mettre à jour l'image principale
+            const productCard = thumbnail.closest('.product-card');
+            const mainImage = productCard.querySelector('.product-main-image');
+            mainImage.src = product.images[imageIndex];
+            
+            // Mettre à jour les miniatures actives
+            productCard.querySelectorAll('.thumbnail').forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === imageIndex);
+            });
+        }
+
+        // ===== MODAL FUNCTIONS =====
+        function openModal(product) {
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductImage').src = product.images[0];
+            document.getElementById('modalProductDescription').textContent = product.description;
+            document.getElementById('modalCurrentPrice').textContent = product.currentPrice;
+            document.getElementById('modalOriginalPrice').textContent = product.originalPrice || '';
+            
+            const whatsappLink = document.getElementById('modalWhatsAppLink');
+            whatsappLink.href = `https://wa.me/237675299235?text=Bonjour,%20je%20souhaite%20commander%20${encodeURIComponent(product.name)}`;
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ===== CART FUNCTIONS =====
+        function addToCart(productId) {
+            // Simulation d'ajout au panier
+            const currentCount = parseInt(cartCount.textContent);
+            cartCount.textContent = currentCount + 1;
+            cartCount.style.animation = 'none';
+            setTimeout(() => {
+                cartCount.style.animation = 'pulse 0.3s';
+            }, 10);
+            
+            alert(`Produit ajouté au panier!`);
+        }
+
+        // ===== EVENT LISTENERS =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialiser les produits
+            renderProducts();
+            
+            // Gérer les clics sur les miniatures
+            catalogue.addEventListener('click', handleThumbnailClick);
+            
+            // Gérer les clics sur les images principales (ouvrir modal)
+            catalogue.addEventListener('click', (event) => {
+                if (event.target.classList.contains('product-main-image')) {
+                    const productId = parseInt(event.target.dataset.productId);
+                    const product = products.find(p => p.id === productId);
+                    if (product) openModal(product);
+                }
+                
+                // Gérer les clics sur les boutons d'achat
+                if (event.target.classList.contains('buy-button')) {
+                    event.preventDefault();
+                    const productId = parseInt(event.target.dataset.productId);
+                    addToCart(productId);
+                    
+                    // Rediriger après un délai
+                    setTimeout(() => {
+                        window.location.href = event.target.href;
+                    }, 1000);
+                }
+            });
+            
+            // Fermer la modal
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) closeModal();
+            });
+            
+            // Fermer avec la touche Échap
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') closeModal();
+            });
+        });
+
+        // ===== AUTO-SLIDER (Optionnel) =====
+        function initAutoSlider() {
+            setInterval(() => {
+                document.querySelectorAll('.product-card').forEach(card => {
+                    const thumbnails = card.querySelectorAll('.thumbnail');
+                    const activeIndex = Array.from(thumbnails).findIndex(thumb => thumb.classList.contains('active'));
+                    const nextIndex = (activeIndex + 1) % thumbnails.length;
+                    
+                    if (thumbnails[nextIndex]) {
+                        thumbnails[nextIndex].click();
+                    }
+                });
+            }, 4000);
+        }
+
+        // Démarrer le slider automatique après 3 secondes
+        setTimeout(initAutoSlider, 3000);
+    </script>
+
+</body>
+</html>

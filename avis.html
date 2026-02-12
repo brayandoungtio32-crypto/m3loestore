@@ -1,0 +1,396 @@
+avis.html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M3LO E-STORE - Montres SKMEI</title>
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .header-left nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.2s ease;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .header-left nav a:hover {
+            color: #ff3333;
+            transform: translateY(-2px);
+        }
+
+        .header-left nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff3333;
+            transition: width 0.3s ease;
+        }
+
+        .header-left nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-center .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff3333, #ff6666);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .cart-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            background-color: #2a2a2a;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-link:hover {
+            background-color: #ff3333;
+            transform: scale(1.05);
+        }
+
+        .cart-count {
+            background-color: #ff3333;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* ===== CATALOGUE ===== */
+        .catalogue {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #ff3333;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-image-container {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover .product-main-image {
+            transform: scale(1.05);
+        }
+
+        .thumbnails {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: #f8f8f8;
+        }
+
+        .thumbnail {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #ff3333;
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .current-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ff3333;
+        }
+
+        .original-price {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .buy-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #25D366, #128C7E);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .buy-button:hover {
+            background: linear-gradient(to right, #128C7E, #0c6b5a);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        /* ===== PRODUCT MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #ff3333;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .header-left nav {
+                gap: 15px;
+            }
+
+            .catalogue {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                padding: 20px;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .catalogue {
+                grid-template-columns: 1fr;
+            }
+
+            .header-center .logo-text {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="header-left">
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+
+        <div class="header-center">
+            <span class="logo-text">M3LO E-STORE</span>
+        </div>
+
+        <div class="header-right">
+            <a href="melo.html" class="cart-link">
+                <span>panier</span>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="temoignage" id="temoignage">
+        <div class="titre">
+            <h1><span>T</span>emoignages</h2>
+            <p>Lisez les temoignages de nos clients</p>
+        </div>
+        <div class="contenu">
+            <div class="box">
+                <div class="imbox">
+                    <img src="retro4.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="text">
+                    <p>Le gout est escquis waouh ils sont formidables . J'adore reellement </p><br>
+                </div>
+            </div>
+            <div class="box">
+                <div class="imbox">
+                    <img src="retro5.jpg" alt=""  width="350px" height="auto">
+                </div>
+                <div class="text">
+                    <p>Ils sont organises , Propres responsables , cest trop chic !</p><br>
+                </div>
+            </div>
+            <div class="box">
+                <div class="imbox">
+                    <img src="retro7.jpg" alt=""  width="350px" height="auto">
+                </div>
+                <div class="text">
+                    <p>Le service est acceuillant chaleureux ; Waouh cest formidable </p><br>
+                </div>
+            </div>
+            
+        </div>    
+        <div class="titre">
+            <a href="#" class="btn-menu">Voir tout</a>
+        </div>
+    </section>
+    <script type="text/javascript">
+        window.addEventListener('scroll', function(){
+            const header =document.querySelector('header');
+            header.classList.toggle("sticky", window.scrollY > 0);
+        });
+
+        function toggleMenu(){
+            const toggleMenu = document.querySelector('.menutoggle');
+            const bar = document.querySelector('bar');
+            menutoggle.classlist.toggle('active');
+            bar.classList.toggle('active'); 
+        }
+    </script>
+</body>
+</html>

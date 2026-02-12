@@ -1,0 +1,187 @@
+/* ===== GLOBAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    color: #333;
+}
+
+/* ===== HEADER ===== */
+.header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #111;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: 800;
+    color: #c40000;
+}
+
+.logo span {
+    color: #111;
+}
+
+/* ===== HERO ===== */
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: #111;
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1100px;
+    margin: 50px auto;
+    display: flex;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+/* ===== FORMULAIRE ===== */
+.contact-form {
+    flex: 1;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.contact-form label {
+    font-weight: 600;
+    margin-top: 15px;
+    display: block;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #c40000;
+    border: none;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #900000;
+}
+
+/* ===== BOUTON WHATSAPP SOUS FORMULAIRE ===== */
+.whatsapp-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    margin-top: 15px;
+    background: #25D366;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+    background: #1ea857;
+}
+
+/* ===== INFO CONTACT ===== */
+.contact-infos {
+    flex: 1;
+    padding: 25px;
+    background: #fafafa;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+.contact-infos h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.contact-infos p {
+    margin: 12px 0;
+    font-size: 16px;
+}
+
+.contact-infos a {
+    color: #c40000;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contact-infos a:hover {
+    text-decoration: underline;
+}
+
+.contact-infos h3 {
+    margin-top: 25px;
+    font-size: 22px;
+}
+
+/* ===== BOUTON FLOATING WHATSAPP ===== */
+.float-whatsapp {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #25D366;
+    color: #fff;
+    font-size: 30px;
+    height: 55px;
+    width: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: 0.3s;
+}
+
+.float-whatsapp:hover {
+    background: #1ea857;
+    transform: scale(1.1);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    padding: 18px;
+    background: #111;
+    color: #fff;
+    margin-top: 40px;
+}

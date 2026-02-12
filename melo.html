@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier - M3LO E-STORE</title>
+    <link rel="stylesheet" href="mello.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <nav>
+                <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
+                <a href="catalogue.html"><i class="fas fa-store"></i> Catalogue</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            </nav>
+        </div>
+
+        <div class="header-center">
+            <span class="logo-text">M3LO E-STORE</span>
+        </div>
+
+        <div class="header-right">
+            <a href="panier.html" class="cart-link active">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Panier</span>
+                <span class="cart-count">0</span>
+                <span class="cart-total">0 FCFA</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <h1><i class="fas fa-shopping-cart"></i> Votre Panier</h1>
+            
+            <div class="cart-container">
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart" id="emptyCart">
+                        <i class="fas fa-shopping-cart fa-3x"></i>
+                        <h3>Votre panier est vide</h3>
+                        <p>Ajoutez des produits depuis notre catalogue</p>
+                        <a href="catalogue.html" class="cta-button">Voir le catalogue</a>
+                    </div>
+                    <!-- Les articles du panier seront ajoutés ici -->
+                </div>
+                
+                <div class="cart-summary" id="cartSummary">
+                    <h3>Résumé de la commande</h3>
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Sous-total</span>
+                            <span id="subtotal">0 FCFA</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Livraison</span>
+                            <span id="shipping">0 FCFA</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span id="totalAmount">0 FCFA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="promo-code">
+                        <input type="text" id="promoCode" placeholder="Code promo">
+                        <button id="applyPromo">Appliquer</button>
+                    </div>
+                    
+                    <div class="cart-actions">
+                        <a href="catalogue.html" class="continue-shopping">
+                            <i class="fas fa-arrow-left"></i> Continuer mes achats
+                        </a>
+                        <button class="checkout-btn" id="checkoutBtn">
+                            <i class="fab fa-whatsapp"></i> Finaliser la commande
+                        </button>
+                    </div>
+                    
+                    <div class="security-info">
+                        <p><i class="fas fa-lock"></i> Paiement sécurisé</p>
+                        <p><i class="fas fa-truck"></i> Livraison en 24-48h</p>
+                        <p><i class="fas fa-undo"></i> Retour gratuit sous 14 jours</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>M3LO E-STORE</h3>
+                <p>Votre boutique en ligne de montres de qualité</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-phone"></i> +237 694 885 267</p>
+                <p><i class="fas fa-envelope"></i> contact@m3lo-store.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Paiements Sécurisés</h3>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 M3LO E-STORE. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data/products.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/panier.js"></script>
+</body>
+</html>
